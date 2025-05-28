@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" x-data="{ openFilters: false }" class="bg-black text-white">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Raki-Movie Explorer</title>
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com "></script>
+
+  <!-- Alpine.js CDN -->
+  <script defer src="https://unpkg.com/alpinejs @3.x.x/dist/cdn.min.js"></script>
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="bg-gradient-to-br from-gray-900 via-black to-gray-900 min-h-screen">
+
+<!-- Header -->
+<header class="relative overflow-hidden h-64 md:h-96 flex items-center justify-center bg-gradient-to-r from-purple-900 via-pink-700 to-red-700">
+  <div class="absolute inset-0 backdrop-blur-md bg-black/30 z-0"></div>
+  <h1 class="text-5xl md:text-7xl font-extrabold tracking-tighter z-10 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-pink-400 to-yellow-300">🎬 Raki-Movie Explorer</h1>
+</header>
+
+<!-- Filters & Search -->
+<main class="max-w-7xl mx-auto px-4 py-12 space-y-8">
+  <section class="flex flex-col sm:flex-row gap-4 items-center justify-between">
+    <input type="text" id="searchInput"
+           placeholder="🔍 Search movies..."
+           class="w-full sm:w-1/2 p-4 rounded-xl bg-black/30 backdrop-blur-lg border border-white/10 focus:border-pink-500 outline-none transition-all duration-300 shadow-lg"/>
+
+    <button @click="openFilters = !openFilters" class="px-6 py-3 bg-gradient-to-r from-indigo-600 to-pink-600 rounded-xl backdrop-blur-md shadow-lg hover:scale-105 transform transition-all duration-300">
+      {{ openFilters ? 'Hide Filters' : 'Show Filters' }}
+    </button>
+  </section>
+
+  <!-- Filter Options -->
+  <div x-show="openFilters" x-collapse.duration.300ms class="grid grid-cols-1 sm:grid-cols-3 gap-4 p-6 bg-black/40 backdrop-blur-md rounded-2xl border border-white/10 shadow-xl">
+    <select id="genreFilter" class="p-3 rounded-xl bg-black/50 backdrop-blur-md border border-white/10 focus:border-green-400 outline-none">
+      <option value="">All Genres</option>
+      <!-- Populated dynamically -->
+    </select>
+
+    <select id="yearFilter" class="p-3 rounded-xl bg-black/50 backdrop-blur-md border border-white/10 focus:border-green-400 outline-none">
+      <option value="">All Years</option>
+      <!-- Populated dynamically -->
+    </select>
+
+    <select id="sortFilter" class="p-3 rounded-xl bg-black/50 backdrop-blur-md border border-white/10 focus:border-green-400 outline-none">
+      <option value="popularity.desc">Most Popular</option>
+      <option value="vote_average.desc">Top Rated</option>
+      <option value="release_date.desc">Newest</option>
+    </select>
+  </div>
+
+  <!-- Results Grid -->
+  <section id="movieResults" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+    <!-- Movies will be injected here -->
+  </section>
+
+  <!-- Pagination -->
+  <div id="pagination" class="flex justify-center gap-2 mt-8"></div>
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>
